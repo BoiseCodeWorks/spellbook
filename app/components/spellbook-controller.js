@@ -19,7 +19,11 @@ function draw(spells) {
 }
 
 function drawSpell(spell) {
-  console.log(spell)
+  let template = `
+  <div class="spell-details">
+    <p><strong>Description: </strong>${spell.desc}</p>
+  </div>`
+  document.getElementById(spell.name.split(' ').join('-')).innerHTML = template
 }
 
 

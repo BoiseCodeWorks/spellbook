@@ -4,6 +4,9 @@ function formatUrl(url) {
   return '//bcw-getter.herokuapp.com/?url=' + encodeURIComponent(url)
 }
 
+let spells = {}
+let mySpellbook = {}
+
 export default class SpellbookService {
   constructor() {
 
@@ -16,9 +19,16 @@ export default class SpellbookService {
   }
 
   getSpell(url, draw) {
+    if (spells[url]) {
+      return draw(spells[url])
+    }
     fetch(formatUrl(url))
       .then(res => res.json())
-      .then(res => draw(res))
+      .then(res => {
+        let spell = new Spell(res)
+        spells[url] = spell
+        return draw(spell)
+      })
   }
 
 }
