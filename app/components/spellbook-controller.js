@@ -18,11 +18,27 @@ function draw(spells) {
 
 }
 
+function drawMySpells() {
+  let template = ''
+  Object.values(ss.mySpellbook).forEach(spell => {
+    template += `
+     <div class="spell-details">
+     <h4> ${spell.name} </h4>
+    <p><strong>Description: </strong>${spell.desc}</p>
+  <button onclick="app.controllers.spellbook.forgetSpell('${spell.url}')">Forget Spell</button>
+  </div>
+    `
+  })
+  document.getElementById("my-spellbook").innerHTML = template
+}
+
 function drawSpell(spell) {
   let template = `
   <div class="spell-details">
     <p><strong>Description: </strong>${spell.desc}</p>
-  </div>`
+  <button onclick="app.controllers.spellbook.learnSpell('${spell.url}')">Learn Spell</button>
+  </div>
+  `
   document.getElementById(spell.name.split(' ').join('-')).innerHTML = template
 }
 
@@ -34,5 +50,13 @@ export default class SpellbookController {
   }
   viewSpell(url) {
     ss.getSpell(url, drawSpell)
+  }
+  learnSpell(url) {
+    ss.learnSpell(url)
+    drawMySpells()
+  }
+  forgetSpell(url) {
+    ss.forgetSpell(url)
+    drawMySpells()
   }
 }

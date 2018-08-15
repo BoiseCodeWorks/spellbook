@@ -7,5 +7,6 @@ export default class Spell {
     this.level = data.level
     this.page = data.page
     this.id = data._id
+    this.url = data.url
   }
 }

@@ -8,10 +8,19 @@ let spells = {}
 let mySpellbook = {}
 
 export default class SpellbookService {
+  forgetSpell(url) {
+    delete mySpellbook[url]
+  }
+  learnSpell(url) {
+    mySpellbook[url] = spells[url]
+    // console.log(mySpellbook)
+  }
   constructor() {
 
   }
-
+  get mySpellbook() {
+    return mySpellbook
+  }
   getSpells(draw, drawError) {
     fetch(formatUrl("http://dnd5eapi.co/api/spells/"))
       .then(res => res.json())
