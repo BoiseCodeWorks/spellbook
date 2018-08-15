@@ -3,6 +3,7 @@ import SpellbookService from "./spellbook-service.js"
 let ss = new SpellbookService
 const app = document.getElementById("app")
 
+//draws all spells (without detail) to the page
 function draw(spells) {
   let template = ""
   spells.forEach(spell => {
@@ -15,9 +16,9 @@ function draw(spells) {
    `
   });
   app.innerHTML = template
-
 }
 
+//Draws spells from spellbook
 function drawMySpells() {
   let template = ''
   Object.values(ss.mySpellbook).forEach(spell => {
@@ -32,6 +33,7 @@ function drawMySpells() {
   document.getElementById("my-spellbook").innerHTML = template
 }
 
+//Draws individual spell details
 function drawSpell(spell) {
   let template = `
   <div class="spell-details">
@@ -45,16 +47,19 @@ function drawSpell(spell) {
 
 export default class SpellbookController {
   constructor() {
+    //gets all spells at start of app
     ss.getSpells(draw)
-
   }
+  //get spell details then draw them
   viewSpell(url) {
     ss.getSpell(url, drawSpell)
   }
+  //adds spell to spellbook
   learnSpell(url) {
     ss.learnSpell(url)
     drawMySpells()
   }
+  //remove spell from spellbook
   forgetSpell(url) {
     ss.forgetSpell(url)
     drawMySpells()
