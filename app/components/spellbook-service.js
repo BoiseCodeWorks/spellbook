@@ -15,4 +15,10 @@ export default class SpellbookService {
       .then(res => draw(res.results))
   }
 
+  getSpell(url, draw) {
+    fetch(formatUrl(url))
+      .then(res => res.json())
+      .then(res => draw(res))
+  }
+
 }
